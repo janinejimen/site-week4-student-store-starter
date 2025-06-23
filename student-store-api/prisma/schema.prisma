@@ -17,7 +17,7 @@ model Product {
   id            Int   @id @default(autoincrement())
   name          String 
   description   String
-  price         Int
+  price         Decimal @
   image_url     String
   category      String
 }
