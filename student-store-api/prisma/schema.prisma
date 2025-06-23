@@ -17,7 +17,18 @@ model Product {
   id            Int   @id @default(autoincrement())
   name          String 
   description   String
-  price         Decimal @
+  price         Decimal
   image_url     String
   category      String
+}
+
+model OrderItem {
+  order_item_id   Int   @id @default(autoincrement())
+  order_id        Int   @id @default(autoincrement())
+
+  product_id      Int
+  Product         Product @relation(fields:[productId], references:[id])
+
+  quantity        Int
+  price           Decimal
 }
