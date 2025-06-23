@@ -3,6 +3,8 @@ const prisma = require("../models/prisma-client");
 exports.getAll = async (req, res) => {
     const products = await prisma.product.findMany()
     res.json(products)
+
+    
 }
 
 exports.getById = async (req, res) => {
