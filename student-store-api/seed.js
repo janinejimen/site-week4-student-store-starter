@@ -3,6 +3,9 @@ const prisma = new PrismaClient()
 const fs = require('fs')
 const path = require('path')
 
+//helps prepopulate the database with dummy data so we dont need to manually add
+//the products
+
 async function seed() {
   try {
     console.log('🌱 Seeding database...\n')
