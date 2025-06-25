@@ -39,6 +39,26 @@ function App() {
   const handleOnCheckout = async () => {
   }
 
+  //use effect before return
+  //this is how the website knows something happened and now we need to talk to the backend
+  useEffect (() => {
+    setIsFetching(true);
+      const fetchProducts = async() => {
+
+        console.log("went into fetch products")
+        try {
+          const response = await axios.get('http://localhost:3000/products');
+          setProducts(response.data);
+          console.log((response.data))
+        } catch (error) {
+          setError("Error in fetching the products")
+        }
+        
+        setIsFetching(false);
+      }
+      fetchProducts()
+  }, [])
+
 
   return (
     <div className="App">

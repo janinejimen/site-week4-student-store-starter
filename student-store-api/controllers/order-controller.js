@@ -7,10 +7,10 @@ exports.getAllOrders = async (req, res) => {
 }
 
 exports.getOrderById = async (req, res) => {
-    const id = Number(req.params.id)
-    const order = await prisma.order.findUnique({where: {id}})
+    const order_id = Number(req.params.order_id)
+    const order = await prisma.order.findUnique({where: {order_id}})
 
-    if(!product) {
+    if(!order) {
         return res.status(404).json({error:"Not Found"})
     }
 
@@ -32,7 +32,7 @@ exports.createOrder = async (req, res) => {
 }
 
 exports.updateOrder = async (req, res) => {
-    const id = Number(req.params.id)
+    const id = Number(req.params.order_id)
     const {customer_id, total_price, status, created_at} = req.body
     const updatedOrder = await prisma.order.update ({
         where: {id},
@@ -43,7 +43,28 @@ exports.updateOrder = async (req, res) => {
 }
 
 exports.removeOrder = async (req, res) => {
-    const id = Number(req.params.id)
+    const id = Number(req.params.order_id)
     await prisma.order.delete({where: {id}})
     res.status(204).end()
+}
+
+exports.addOrderItems = async (req, res) => {
+    const idParam = Number(req.params.order_id)
+
+    const {product_id} = req.body
+
+    const newOrderItem = await prisma.orderItem.create ({
+        data: {
+            order_id: {connect: {order_id: idParam}}, 
+            product_id: {connect: {id: product_id}}, 
+            quantity,
+            price
+        }
+    })
+
+    res.status(201).json(newOrderItem)
+}
+
+exports.getTotal = async(req, res) => {
+    
 }
