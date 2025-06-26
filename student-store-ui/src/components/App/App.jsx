@@ -46,28 +46,41 @@ function App() {
 
     try {
       const customer_id = Number(userInfo.dorm_number);
-
       const itemsForOrder = [];
 
+      const currOrder = await axios.post("http://localhost:3000/orders", {
+        customer_id: parseInt(userInfo.name),
+        status: "pending",
+        total_price: 0,
+        created_at: new Date().toISOString(),
+
+      })
+
+      const orderId = currOrder.data.order_id;
+
+      console.log("cart2:", cart);
+      console.log("Object.entries(cart):2", Object.entries(cart));
       //iterate through the cart and create an arrray of items for the order
-      for (const item in cart) {
-        const quantity = cart[item];
-        const productId = parseInt(item);
+      for (const [key, value] of Object.entries(cart)) {
+        const responseOrder = await axios.get(`http://localhost:3000/products/${key}`)
+        const itemPrice = responseOrder.data.price;
+        const orderSubtotal = calculateOrderSubtotal(itemsForOrder);
+        const finalTotalPrice = calculateTotal(orderSubtotal);
 
-        const product = products.find((p) => p.id === productId);
-
-        const itemPrice = product.price;
-
-        itemsForOrder.push({
-          product_id: product.id,
-          quantity: quantity,
-          price: itemPrice,
+        const currItem = await axios.post("http://localhost:3000/order-items",{
+      
+          order_id: orderId,
+          product_id: parseInt(key),
+          quantity: parseInt(value),
+          price: finalTotalPrice,
         });
+      
+
+        console.log("curr", currItem)
+
       }
 
       console.log(itemsForOrder)
-      const orderSubtotal = calculateOrderSubtotal(itemsForOrder);
-      const finalTotalPrice = calculateTotal(orderSubtotal);
 
       console.log(finalTotalPrice)
 
