@@ -30,7 +30,7 @@ export default function PaymentInfo({ userInfo, setUserInfo, handleOnCheckout, i
             type="email"
             placeholder="Email"
             value={userInfo.id}
-            onChange={(e) => setUserInfo((u) => ({ ...u, email: e.target.value }))}
+            onChange={(e) => setUserInfo((u) => ({ ...u, dorm_number: e.target.value }))}
           />
         </div>
       </div>
