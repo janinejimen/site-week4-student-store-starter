@@ -6,7 +6,6 @@ exports.getAllOrderItems = async(req, res) => {
 }
 
 exports.createOrderItems = async(req, res) => {
-    console.log("request", req);
     const {order_id, product_id, price, quantity} = req.body
     const newOrderItem = await prisma.orderItem.create({
         data: {

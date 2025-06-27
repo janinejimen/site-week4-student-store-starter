@@ -19,7 +19,6 @@ function ProductDetail({ addToCart, removeFromCart, getQuantityOfItemInCart }) {
       try {
         const response = await axios.get(`http://localhost:3000/products/${productId}`)
         setProduct(response.data)
-        console.log(response.data)
       } catch (err) {
         setError(err)
       }
