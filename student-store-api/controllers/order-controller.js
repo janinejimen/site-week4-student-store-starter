@@ -2,7 +2,7 @@ const prisma = require("../models/prisma-client")
 
 exports.getAllOrders = async (req, res) => {
 
-    let orders = await prisma.order.findMany()
+    let orders = await prisma.order.findMany({include: {orderItems: true}})
     res.json(orders)
 }
 
