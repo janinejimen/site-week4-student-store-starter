@@ -8,7 +8,7 @@ exports.getAllOrders = async (req, res) => {
 
 exports.getOrderById = async (req, res) => {
     const order_id = Number(req.params.order_id)
-    const order = await prisma.order.findUnique({where: {order_id}})
+    const order = await prisma.order.findUnique({where: {order_id}, include: { orderItems: true }})
 
     if(!order) {
         return res.status(404).json({error:"Not Found"})
@@ -32,14 +32,14 @@ exports.createOrder = async (req, res) => {
 }
 
 exports.updateOrder = async (req, res) => {
-    const id = Number(req.params.order_id)
+    const order_id = Number(req.params.order_id)
     const {customer_id, total_price, status, created_at} = req.body
     const updatedOrder = await prisma.order.update ({
-        where: {id},
+        where: {order_id},
         data: {customer_id, total_price, status, created_at}
     })
 
-    res.json(updatedProduct)
+    res.json(updatedOrder)
 }
 
 exports.removeOrder = async (req, res) => {

@@ -42,66 +42,48 @@ function App() {
   };
 
   const handleOnCheckout = async () => {
-    setIsCheckingOut(true);
+  setIsCheckingOut(true);
 
-    try {
-      const customer_id = Number(userInfo.dorm_number);
-      const itemsForOrder = [];
+  try {
+    let orderSubtotal = 0;
 
-      const currOrder = await axios.post("http://localhost:3000/orders", {
-        customer_id: parseInt(userInfo.name),
-        status: "pending",
-        total_price: 0,
-        created_at: new Date().toISOString(),
+    const currOrder = await axios.post("http://localhost:3000/orders", {
+      customer_id: parseInt(userInfo.name),
+      status: "pending",
+      total_price: 0,
+      created_at: new Date().toISOString(),
+    });
 
-      })
+    const orderId = currOrder.data.order_id;
 
-      const orderId = currOrder.data.order_id;
+    for (const [key, value] of Object.entries(cart)) {
+      const responseOrder = await axios.get(`http://localhost:3000/products/${key}`);
+      const price = responseOrder.data.price;
+      orderSubtotal += price * value;
 
-      console.log("cart2:", cart);
-      console.log("Object.entries(cart):2", Object.entries(cart));
-      //iterate through the cart and create an arrray of items for the order
-      for (const [key, value] of Object.entries(cart)) {
-        const responseOrder = await axios.get(`http://localhost:3000/products/${key}`)
-        const itemPrice = responseOrder.data.price;
-        const orderSubtotal = calculateOrderSubtotal(itemsForOrder);
-        const finalTotalPrice = calculateTotal(orderSubtotal);
+      await axios.post("http://localhost:3000/order-items", {
+        order_id: parseInt(orderId),
+        product_id: parseInt(key),
+        quantity: parseInt(value),
+        price: price
+      });
+    }
 
-        const currItem = await axios.post("http://localhost:3000/order-items",{
-      
-          order_id: orderId,
-          product_id: parseInt(key),
-          quantity: parseInt(value),
-          price: finalTotalPrice,
-        });
-      
+    orderSubtotal += (orderSubtotal * 0.0875)
 
-        console.log("curr", currItem)
+    await axios.put(`http://localhost:3000/orders/${orderId}`, {
+      total_price: orderSubtotal,
+      status: "completed"
+    });
 
-      }
+    setCart({});
+    setUserInfo({ name: "", dorm_number: "", email: ""});
+  } catch (error) {
+    console.error(error);
+  }
+  setIsCheckingOut(false);
+};
 
-      console.log(itemsForOrder)
-
-      console.log(finalTotalPrice)
-
-       const orderPush = {
-        customer_id: customer_id,
-        total_price: finalTotalPrice,
-        status: "completed",
-        created_at: new Date().toISOString(),
-        orderItems: itemsForOrder
-      }
-
-      const pushData = await axios.post("http://localhost:3000/orders", orderPush)
-
-      setCart({}); 
-      setUserInfo({name:"",dorm_number:""})
-    } catch {}
-    setIsCheckingOut(false)
-  };
-
-  //use effect before return
-  //this is how the website knows something happened and now we need to talk to the backend
   useEffect(() => {
     setIsFetching(true);
     const fetchProducts = async () => {
