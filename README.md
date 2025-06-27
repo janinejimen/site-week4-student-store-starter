@@ -10,7 +10,7 @@ Submitted by: **Janine Jimenez**
 - [x] **Database Creation**: Set up a Postgres database to store information about products and orders.
   - [x]  Use Prisma to define models for `products`, `orders`, and `order_items`.
   - [x]  **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS**: Use Prisma Studio to demonstrate the creation of your `products`, `orders`, and `order_items` tables. 
-- [ ] **Products Model**
+- [x] **Products Model**
   - [x] Develop a products model to represent individual items available in the store. 
   - [x] This model should at minimum include the attributes:
     - [x] `id`
@@ -44,7 +44,7 @@ Submitted by: **Janine Jimenez**
     - [x] `price`
   - [x] Implement methods for fetching and creating order items.  
   - [x] **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS**: Use Prisma Studio to demonstrate the creation of all attributes (table columns) in your Order Items Model.
-- [x] **API Endpoints**
+- [ ] **API Endpoints**
   - [x] Application supports the following **Product Endpoints**:
     - [x] `GET /products`: Fetch a list of all products.
     - [x] `GET /products/:id`: Fetch details of a specific product by its ID.
@@ -57,19 +57,19 @@ Submitted by: **Janine Jimenez**
     - [x] `POST /orders`: Create a new order with specified order items.
     - [x] `PUT /orders/:order_id`: Update the details of an existing order (e.g., change status).
     - [x] `DELETE /orders/:order_id`: Remove an order from the database.
-    - [x] **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS**: Use Postman or another API testing tool to demonstrate the successful implementation of each endpoint. For the `DELETE` endpoints, please use Prisma Studio to demonstrate that any relevant order items have been deleted. 
-- [x] **Frontend Integration**
-  - [x] Connect the backend API to the provided frontend interface, ensuring dynamic interaction for product browsing, cart management, and order placement. Adjust the frontend as necessary to work with your API.
-  - [x] Ensure the home page displays products contained in the product table.
-  - [x] **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS**: Use `npm start` to run your server and display your website in your browser. 
-    - [x] Demonstrate that users can successfully add items to their shopping cart, delete items from their shopping cart, and place an order
-    - [x] After placing an order use Postman or Prisma Studio demonstrate that a corresponding order has been created in your orders table.
+    - [ ] **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS**: Use Postman or another API testing tool to demonstrate the successful implementation of each endpoint. For the `DELETE` endpoints, please use Prisma Studio to demonstrate that any relevant order items have been deleted. 
+- [ ] **Frontend Integration**
+  - [ ] Connect the backend API to the provided frontend interface, ensuring dynamic interaction for product browsing, cart management, and order placement. Adjust the frontend as necessary to work with your API.
+  - [ ] Ensure the home page displays products contained in the product table.
+  - [ ] **VIDEO WALKTHROUGH SPECIAL INSTRUCTIONS**: Use `npm start` to run your server and display your website in your browser. 
+    - [ ] Demonstrate that users can successfully add items to their shopping cart, delete items from their shopping cart, and place an order
+    - [ ] After placing an order use Postman or Prisma Studio demonstrate that a corresponding order has been created in your orders table.
 
 ### Stretch Features
 
-- [x] **Added Endpoints**
-  - [x] `GET /order-items`: Create an endpoint for fetching all order items in the database.
-  - [x] `POST /orders/:order_id/items` Create an endpoint that adds a new order item to an existing order. 
+- [ ] **Added Endpoints**
+  - [ ] `GET /order-items`: Create an endpoint for fetching all order items in the database.
+  - [ ] `POST /orders/:order_id/items` Create an endpoint that adds a new order item to an existing order. 
 - [ ] **Past Orders Page**
   - [ ] Build a page in the UI that displays the list of all past orders.
   - [ ] The page lists all past orders for the user, including relevant information such as:

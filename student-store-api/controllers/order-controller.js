@@ -44,7 +44,7 @@ exports.updateOrder = async (req, res) => {
 
 exports.removeOrder = async (req, res) => {
     const id = Number(req.params.order_id)
-    await prisma.order.delete({where: {id}})
+    await prisma.order.delete({where: { order_id: id } })
     res.status(204).end()
 }
 
